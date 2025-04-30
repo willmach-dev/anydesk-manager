@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Clientes AnyDesk{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h3>Clientes AnyDesk</h3>
+        <a href="{{ url_for('adicionar_cliente_anydesk') }}" class="btn btn-primary">
+            Adicionar Cliente
+        </a>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nome do Cliente</th>
+                    <th>ID AnyDesk</th>
+                    <th>Senha</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for client in clients %}
+                <tr>
+                    <td>{{ client.client_name }}</td>
+                    <td>
+                        {{ client.anydesk_id }}
+                        <button class="btn btn-sm btn-outline-primary ms-2" onclick="copyToClipboard('{{ client.anydesk_id }}')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </td>
+                    <td>
+                        {{ client.anydesk_password }}
+                        <button class="btn btn-sm btn-outline-primary ms-2" onclick="copyToClipboard('{{ client.anydesk_password }}')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <a href="{{ url_for('editar_cliente_anydesk', client_id=client.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                        <button class="btn btn-sm btn-danger" onclick="deleteClient({{ client.id }})">Excluir</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+function deleteClient(clientId) {
+    if (confirm('Tem certeza que deseja excluir este cliente?')) {
+        fetch(`/anydesk/${clientId}/excluir`, {
+            method: 'POST',
+        }).then(response => {
+            if (response.ok) {
+                window.location.reload();
+            }
+        });
+    }
+}
+</script>
+{% endblock %} 

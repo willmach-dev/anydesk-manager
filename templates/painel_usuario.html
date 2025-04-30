@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Painel do Usuário{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3>Bem-vindo, {{ current_user.username }}!</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Clientes AnyDesk</h5>
+                                <p class="card-text">Acesse a lista de clientes AnyDesk e suas credenciais.</p>
+                                <a href="{{ url_for('clientes_anydesk') }}" class="btn btn-primary">Ver Clientes</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Seu Perfil</h5>
+                                <p class="card-text">Visualize suas informações de usuário.</p>
+                                <p><strong>Usuário:</strong> {{ current_user.username }}</p>
+                                <p><strong>Tipo:</strong> {{ 'Administrador' if current_user.is_admin else 'Usuário' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}{{ 'Editar' if client else 'Adicionar' }} Cliente AnyDesk{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h3>{{ 'Editar' if client else 'Adicionar' }} Cliente AnyDesk</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="client_name" class="form-label">Nome do Cliente</label>
+                        <input type="text" class="form-control" id="client_name" name="client_name" 
+                               value="{{ client.client_name if client else '' }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="anydesk_id" class="form-label">ID AnyDesk</label>
+                        <input type="text" class="form-control" id="anydesk_id" name="anydesk_id" 
+                               value="{{ client.anydesk_id if client else '' }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="anydesk_password" class="form-label">Senha</label>
+                        <input type="text" class="form-control" id="anydesk_password" name="anydesk_password" 
+                               value="{{ client.anydesk_password if client else '' }}" required>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <a href="{{ url_for('clientes_anydesk') }}" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
